@@ -1,0 +1,224 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Fraunces", ui-serif, Georgia, serif;
+  --color-brand-950: #080f1c;
+  --color-brand-900: #0c2138;
+  --color-brand-800: #163a5c;
+  --color-brand-50: #f0f5fa;
+  --color-accent-500: #0d9488;
+  --color-accent-400: #14b8a6;
+  --color-gold-500: #c9a227;
+  --color-gold-400: #d4b84a;
+  --shadow-elegant: 0 2px 8px -2px rgba(8, 15, 28, 0.06),
+    0 20px 50px -20px rgba(8, 15, 28, 0.12);
+  --shadow-glow-emerald: 0 0 0 1px rgba(16, 185, 129, 0.2),
+    0 4px 24px -4px rgba(5, 150, 105, 0.35);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-sans);
+    @apply text-slate-800 antialiased bg-[#f6f8fb];
+    font-feature-settings: "kern" 1, "liga" 1;
+  }
+
+  .font-display {
+    font-family: var(--font-display);
+  }
+
+  #root {
+    @apply min-h-svh;
+  }
+
+  ::selection {
+    @apply bg-emerald-200/80 text-slate-900;
+  }
+
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-teal-600 rounded-sm;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-up {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.97);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes cta-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(20, 184, 166, 0.45);
+  }
+  50% {
+    box-shadow: 0 0 24px 4px rgba(20, 184, 166, 0.35);
+  }
+}
+
+@keyframes shimmer-cta {
+  0% {
+    transform: translateX(-100%) skewX(-12deg);
+  }
+  100% {
+    transform: translateX(200%) skewX(-12deg);
+  }
+}
+
+@keyframes modal-surface {
+  from {
+    opacity: 0;
+    transform: translateY(20px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+@keyframes float-soft {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+@keyframes gradient-shift {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+
+@utility animate-fade-in {
+  animation: fade-in 0.55s ease-out both;
+}
+
+@utility animate-fade-in-up {
+  animation: fade-in-up 0.6s ease-out both;
+}
+
+@utility animate-scale-in {
+  animation: scale-in 0.45s ease-out both;
+}
+
+@utility animate-modal {
+  animation: modal-surface 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@utility animate-float-soft {
+  animation: float-soft 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn-cta-diag {
+    animation: none;
+  }
+  .btn-cta-diag::after {
+    display: none;
+  }
+  .animate-fade-in,
+  .animate-fade-in-up,
+  .animate-scale-in,
+  .animate-modal,
+  .animate-float-soft {
+    animation: none !important;
+  }
+  .animate-fade-in-up,
+  .animate-fade-in,
+  .animate-scale-in,
+  .animate-modal {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@utility text-gradient-hero {
+  @apply bg-gradient-to-r from-emerald-200 via-teal-100 to-amber-200/90 bg-clip-text text-transparent;
+}
+
+/* CTA "Realizar diagnóstico" */
+.btn-cta-diag {
+  @apply relative overflow-hidden transition-transform duration-300;
+  @apply bg-gradient-to-r from-emerald-500 via-teal-500 to-emerald-600 text-white;
+  @apply border border-white/20 shadow-lg;
+  animation: cta-pulse 2.4s ease-in-out infinite;
+}
+
+.btn-cta-diag:hover {
+  @apply scale-[1.02] -translate-y-0.5;
+  animation: none;
+  box-shadow: 0 0 32px 6px rgba(45, 212, 191, 0.45);
+}
+
+.btn-cta-diag:active {
+  @apply scale-[0.98] translate-y-0;
+}
+
+.btn-cta-diag::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  left: -50%;
+  width: 50%;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 255, 255, 0.32),
+    transparent
+  );
+  animation: shimmer-cta 2.2s ease-in-out infinite;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+.btn-cta-diag:focus-visible {
+  @apply ring-2 ring-emerald-200 ring-offset-2 ring-offset-brand-900;
+}
+
+@utility page-grid-bg {
+  background-color: #f6f8fb;
+  background-image: linear-gradient(
+      rgba(12, 33, 56, 0.028) 1px,
+      transparent 1px
+    ),
+    linear-gradient(90deg, rgba(12, 33, 56, 0.028) 1px, transparent 1px);
+  background-size: 40px 40px;
+}
