@@ -1,0 +1,7 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "installCommand": "npm install --prefix ganancias_web_page",
+  "buildCommand": "npm run build --prefix ganancias_web_page",
+  "outputDirectory": "ganancias_web_page/dist",
+  "rewrites": [{ "source": "/(.*)", "destination": "/index.html" }]
+}
